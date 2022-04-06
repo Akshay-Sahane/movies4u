@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movies4u |{% block title%} Home {%endblock title%}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body class="bg-dark">
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-2 text-warning" href="/movie"><i class="fa-solid fa-video"></i> Movies4u</a>
+      <button class="navbar-toggler bg-light text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon bg-light"></span>
+      </button>
+      <div class="collapse navbar-collapse text-light" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-auto text-center">
+          <li class="nav-item mb-1 mx-3 rounded">
+           <strong><a class="nav-link text-light bb nlinks" aria-current="page" href="/movie/"><i class="fa-solid fa-house"></i> Home</a></strong>
+          </li>
+          <li class="nav-item mb-1 mx-3 rounded">
+            <strong><a class="nav-link text-light nlinks" href="/movie/Bmovielist"><i class="fa-solid fa-clapperboard"></i> Movies</a></strong>
+          </li>
+          <li class="nav-item mb-1 mx-3 rounded">
+            <strong><a class="nav-link text-light nlinks" href="/movie/about"> <i class="fa-solid fa-address-card"></i> About</a></strong>
+          </li>
+          <li class="nav-item mb-1 mx-3 rounded">
+            <strong><a class="nav-link text-light nlinks" href="/accounts/review"><i class="fa-solid fa-comments"></i> Review</a></strong>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if request.user.is_authenticated %}
+                    <b class="text-info mx-2 border-bottom border-info">welcome {{ request.user.first_Name }}</b>
+                    {% else %}
+                     <b class="text-light nlinks">user</b>
+                  {% endif %}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% if request.user.is_authenticated %}
+                  
+              {% if request.user.is_superuser or request.user.user_Role == 'admin' %}
+              <li><b><a class="dropdown-item" href="/movie/add-bmovie">Add Bolly-Movie</a></b></li>
+              <li><b><a class="dropdown-item" href="/movie/add-hmovie">Add Holly-Movie</a></b></li>
+              <li><b><a class="dropdown-item" href="/accounts/register-admin">Add staff</a></b></li>
+              {% elif request.user.user_Role == 'customer' %}
+              <li><b><a class="dropdown-item" href="/accounts/profile/{{ user.userId }}">Profile</a></b></li>
+              {% endif %}
+                
+              <li><b><a class="dropdown-item" href="/accounts/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> logout</a></b></li>
+              {% else %}
+              <li><b><a class="dropdown-item" href="/accounts/register-customer"><i class="fa-solid fa-user-plus"></i> Register</a></b></li>
+              <li><b><a class="dropdown-item" href="/accounts/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a></b></li>
+              {% endif %}
+            </ul>
+          </li>
+          <a href="/movie/Bmovielist" class="btn btn-info mx-1 my-1">Bollywood</a>
+          <a href="/movie/Hmovielist" class="btn btn-success mx-1 my-1">Hollywood</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+       <form action="/movie/searchmovie" class="d-flex mx-auto mb-2 fs-5" style="padding-top:5rem;width:50%;">
+          <input class="form-control me-2 searchbox" type="text" name="q" placeholder="search your movie here..." aria-label="Search">
+          <button class="px-2 bg-danger" type="submit" onfocus="addClass('px-3')"> <i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+              
+    {% block body %}
+    
+    {% endblock body %}
+
+    <script src="{% static '/js/script.js' %}"></script>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'movie/base.html' %}
+{% load static %}
+
+{% block title %}AddMovie{% endblock title %}
+    
+
+{% block body %}
+<div class="container pt-3 text-light col-4">
+    {% include 'messages.html' %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table table-dark text-light">
+            {{ form.as_table }}
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="btn btn-success" value="Save">
+                    <input type="reset" class="btn btn-danger" value="cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+{% endblock body %}

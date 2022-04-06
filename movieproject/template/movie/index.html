@@ -1,0 +1,55 @@
+{% extends 'movie/base.html' %}
+
+{% load static %}  
+{% block body %}
+{% include 'messages.html' %}
+    <section class="home bg-gradient" id="home">
+    
+        <div class="swiper-container home-slider">
+      
+            <div class="swiper-wrapper wrapper">
+      
+                <div class="swiper-slide slide">
+                    <div class="content">
+                        <span>get latest movie</span>
+                        <h3><i>John Wick-3</i></h3>
+                        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <a href="/movie/Bmovielist" class="btn btn-primary">Download now</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static 'images/John Wick Chapter 3.jpg' %}" alt="" class="rounded-pill">
+                    </div>
+                </div>
+      
+                <div class="swiper-slide slide">
+                    <div class="content">
+                        <span>get latest movie</span>
+                        <h3><i>Red Notice</i></h3>
+                        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <a href="/movie/Bmovielist" class="btn btn-primary">Download now</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static 'images/red notice.jpg' %}" alt="" class="rounded-pill">
+                    </div>
+                </div>
+      
+                <div class="swiper-slide slide">
+                    <div class="content">
+                        <span>get latest movie</span>
+                        <h3><i>Venom</i></h3>
+                        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
+                        <a href="/movie/Bmovielist" class="btn btn-primary">Download now</a>
+                    </div>
+                    <div class="image">
+                        <img src="{% static 'images/venom.jpg' %}" alt="" class="rounded-pill">
+                    </div>
+                </div>
+      
+            </div>
+      
+            <div class="swiper-pagination"></div>
+      
+        </div>
+      
+      </section>
+{% endblock body %}

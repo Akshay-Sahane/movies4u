@@ -1,0 +1,22 @@
+{% extends 'movie/base.html' %}
+
+
+{% block title %}
+    Confirmation
+{% endblock title %}
+    
+
+{% block body %}
+    
+<div class="container text-center">
+    <div class="alert alert-danger mx-auto" role="alert" style="width:70%;">
+        Are you sure you want to delete {{ object.movieName }}-{{ object.movieReleasedate }}
+        <form action="" method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Yes">
+            <a class="btn btn-secondary" href="/movie">No</a>
+        </form>
+      </div>
+</div>
+{% endblock body %}
+    

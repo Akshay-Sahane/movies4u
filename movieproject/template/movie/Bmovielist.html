@@ -1,0 +1,54 @@
+{% extends 'movie/base.html' %}
+
+{% block title %} movies {% endblock title %}
+    
+{% block body %}
+
+<h1 class="text-center text-info">Movie list</h1>
+
+<div class="dropdown text-center text-light">
+  <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-arrow-up"></i> <i class="fa-solid fa-arrow-down"></i> sort by
+  </a>
+ 
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="/movie/moviesortnameascB"><i class="fa-solid fa-file-signature"></i> Name-asc</a></li>
+    <li><a class="dropdown-item" href="/movie/moviesortnamedescB"><i class="fa-solid fa-file-signature"></i> Name-desc</a></li>
+    <li><a class="dropdown-item" href="/movie/moviesortdateascB"><i class="fa-solid fa-calendar-days"></i> Newest first</a></li>
+    <li><a class="dropdown-item" href="/movie/moviesortdatedescB"><i class="fa-solid fa-calendar-days"></i> oldest first</a></li>
+  </ul>
+</div>
+
+{% include 'messages.html' %}
+  
+     <div class="row container mx-auto my-2">
+       
+        {% for movie in object_list reversed %}
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+
+                <div class="card mx-2 mt-4 mb-1 mycard p-1">
+                    <img src="{{ movie.movieImage.url }}" class="card-img-top rounded" alt="..." style="height:350px;">
+                    <div class="card-body text-center">
+                      <h5 class="card-title">{{ movie.movieName }}|{{ movie.movieType }}</h5>
+                      <b>Rel: {{ movie.movieReleasedate }}</b>
+                        <b title="Read me" class="p-1">
+                      <p class="card-text">{{ movie.movieDescription }}</p>
+                        </b>
+                      <div class="text-center">
+                        {% if request.user.is_authenticated and request.user.is_superuser or request.user.user_Role == 'admin' %}
+                      <a href="/movie/update-bmovie/{{ movie.pk }}" class="btn btn-warning my-1">edit</a>
+                      <a href="/movie/delete-bmovie/{{ movie.pk }}" class="btn btn-danger my-1">delete</a>
+                      {% endif %}
+                      {% if request.user.is_authenticated and request.user.user_Role == 'customer' %}
+                      <a href="{{ movie.movieLink }}" class="btn btn-primary my-1" target="_blank">Download</a>
+                      {% endif %}
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            {% empty %}
+            <h1 class="text-warning text-center">No movies found</h1>
+        {% endfor %}
+     </div>
+
+{% endblock body %}
