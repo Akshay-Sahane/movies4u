@@ -75,8 +75,8 @@ def rand():
 from twilio.rest import Client
 def otp(mob):
     mob=mob
-    account_sid='AC04a4c64a989e613d18669408188978ee'
-    auth_token='90fa964a7816a95904830226d641d903'
+    account_sid='your twilio sid here'
+    auth_token='your twilio auth token here'
     client=Client(account_sid,auth_token)
     m1="otp for resetting password is:"
     global OTP
